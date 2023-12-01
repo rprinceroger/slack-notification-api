@@ -1,8 +1,8 @@
 ## Install Viribuz - Notification from the Slack App Directory
 
-To install `Viribuz - Notification`, you can use the following link to install it directly from the Slack App Directory:
+To install `Notification`, you can use the following link to install it directly from the Slack App Directory:
 
-[Install Viribuz - Notification](https://slack.com/apps/{6276811745539.6274103266021}?channel={C0687AZT28L}&team={T0684PVMXFV}&install_redirect={https://slack-notification-redirect-uri-api.onrender.com})
+[Install Viribuz - Notification](https://slack.com/oauth/v2/authorize?client_id=1432875016049.6271213608244&scope=incoming-webhook&user_scope=chat:write)
 
 Follow the on-screen instructions to complete the installation process. If you encounter any issues or have questions, please [contact our support team](mailto:prince@viribuztech.com).
 
@@ -17,15 +17,9 @@ curl -X POST -H "Authorization: Bearer YOUR_SLACK_ACCESS_TOKEN" https://slack.co
 
 <br>
 
-## HTTP Method and route: GET /slack/oauth/callback
-
-https://viribuz-tech-slack-notification-redirect.onrender.com/slack/oauth/callback
-
-<br>
-
 ## HTTP Method and route: POST /send-message
 
-https://viribuz-tech-slack-notification.onrender.com/send-message
+https://viribuz-slack-notification.onrender.com/send-message
 
 
 **Request Body:**
