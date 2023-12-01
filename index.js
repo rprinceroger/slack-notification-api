@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { WebClient } = require('@slack/web-api');
 
 const app = express();
 const port = 3000;
@@ -8,8 +9,11 @@ require('dotenv').config();
 
 app.use(bodyParser.json());
 
+// Initialize Slack Web API client
+const slackClient = new WebClient(process.env.SLACK_BOT_TOKEN);
+
 // Your API endpoint for sending messages using POST
-app.post('/send-message', (req, res) => {
+app.post('/send-message', async (req, res) => {
   try {
     const { token, channel, text } = req.body;
 
@@ -17,13 +21,28 @@ app.post('/send-message', (req, res) => {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    console.log(`Sending message to channel ${process.env.SLACK_CHANNEL}: ${text}`);
+    // Check if the channel is undefined or empty
+    if (!channel || channel.trim() === '') {
+      return res.status(400).json({ error: 'Bad Request', details: 'Channel is required' });
+    }
+
+    console.log(`Sending message to channel ${channel}: ${text}`);
+
+    // Send a message to the specified Slack channel
+    const result = await slackClient.chat.postMessage({
+      channel: channel,
+      text: text,
+    });
+
+    console.log('Message sent to Slack:', result);
 
     res.json({ message: 'Message sent successfully' });
-  } catch (error) {
-    console.error('Error handling /send-message:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+    } catch (error) {
+        console.error('Error handling /send-message:', error);
+
+        // Send a more informative error response
+        res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    }
 });
 
 // Your OAuth installation endpoint for handling GET requests
