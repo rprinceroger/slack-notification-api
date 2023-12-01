@@ -1,6 +1,12 @@
 # Slack's Notification
 
 
+User OAuth Token: 
+```
+xoxp-1432875016049-5975527742320-6255001939271-40046ec332b5001a43ef5d475a3efe72
+```
+
+
 App ID: 
 ```
 A067Z69HW76
@@ -37,6 +43,10 @@ Slack Channel ID:
 D05TTS6KT2A - NOTED THIS IS MY PERSONAL CHANNEL ID.
 
 This is for the Alert Channel: (C061JUJ5PCJ)
+
+
+
+C0687AZT28L - TEST
 ```
 
 
@@ -75,9 +85,42 @@ https://slack.com/api/chat.postMessage
 ```
 
 Sample - Reqeust Body: 
-
+```
 {
 	"token": "process.env.SECRET_TOKEN",
 	"channel":"your_channel",
 	"text":"${text}"
 }
+```
+
+
+POST 
+https://viribuz-slack-notification.onrender.com/send-message
+
+```
+
+{
+    "token": "xoxp-1432875016049-5975527742320-6255001939271-40046ec332b5001a43ef5d475a3efe72",
+    "channel": "D05TTS6KT2A",
+    "text": "Insert here your dynamic message - Test 3."
+}
+
+```
+
+Blocker: I don't have access with App Management Settings of Slack.
+https://viribuz.slack.com/apps/manage/custom-integrations
+
+
+
+https://viribuz-slack-notification.onrender.com/send-message
+
+
+
+
+
+
+
+
+
+This is Slack Workflow:
+https://slack.com/shortcuts/Ft06848PNUJW/3187b19b7735c9766568222ef7e15141
