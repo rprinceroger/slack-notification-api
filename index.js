@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios'); // Import Axios for making HTTP requests
 
 const app = express();
 const port = 3000;
@@ -9,16 +10,43 @@ require('dotenv').config();
 app.use(bodyParser.json());
 
 // Your API endpoint for sending messages using POST
-app.post('/send-message', (req, res) => {
-  const { token, channel, text } = req.body;
+app.post('/send-message', async (req, res) => {
+  try {
+    const { token, channel, text } = req.body;
 
-  if (token !== process.env.SECRET_TOKEN) {
-    return res.status(401).json({ error: 'Unauthorized' });
+    if (token !== process.env.SECRET_TOKEN) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    console.log(`Sending message to channel ${process.env.SLACK_CHANNEL}: ${text}`);
+
+    // Make a request to Slack's chat.postMessage API
+    const response = await axios.post(
+      'https://slack.com/api/chat.postMessage',
+      {
+        channel: process.env.SLACK_CHANNEL,
+        text: text,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`, // Use your Slack Bot token here
+        },
+      }
+    );
+
+    if (!response.data.ok) {
+      // Handle Slack API error
+      console.error('Slack API Error:', response.data.error);
+      return res.status(500).json({ error: 'Failed to send message to Slack' });
+    }
+
+    res.json({ message: 'Message sent successfully' });
+  } catch (error) {
+    // Handle unexpected errors
+    console.error('Unexpected Error:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-
-  console.log(`Sending message to channel ${process.env.SLACK_CHANNEL}: ${text}`);
-
-  res.json({ message: 'Message sent successfully' });
 });
 
 // Your OAuth installation endpoint for handling GET requests

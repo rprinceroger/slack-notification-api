@@ -45,3 +45,19 @@ xapp-1-A0682317U0M-6270446496982-35f1a3e2b2c9566a8f3562e9e0845e64a2ae5e3b6be64cd
 Redirect URI
 Live On Render:
 https://slack-notification-redirect-uri-api.onrender.com
+
+
+
+Bash Terminal to get the TEAM ID: 
+curl -X POST -H "Authorization: Bearer xoxp-6276811745539-6276912322386-6262514131527-4011c73b51dcde3b66e8ca31515a297e" --insecure https://slack.com/api/auth.test
+
+
+Response:
+$ curl -X POST -H "Authorization: Bearer xoxp-6276811745539-6276912322386-6262514131527-4011c73b51dcde3b66e8ca31515a297e" --insecure https://slack.com/api/auth.test
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   170  100   170    0     0     30      0  0:00:05  0:00:05 --:--:--    40{"ok":true,"url":"https:\/\/viribuz-tech.slack.com\/","team":"Viribuz Tech","user":"prince","team_id":"T0684PVMXFV","user_id":"U0684SU9GBC","is_enterprise_install":false}
+
+
+User OAuth Token:
+xoxp-6276811745539-6276912322386-6262514131527-4011c73b51dcde3b66e8ca31515a297e
