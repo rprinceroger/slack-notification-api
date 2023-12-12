@@ -31,18 +31,18 @@ app.post('/send-message', async (req, res) => {
     // Send a message to the specified Slack channel
     const result = await slackClient.chat.postMessage({
       channel: channel,
-      text: text,
+      text: text, // Assuming `text` is a template string
     });
 
     console.log('Message sent to Slack:', result);
 
     res.json({ message: 'Message sent successfully' });
-    } catch (error) {
-        console.error('Error handling /send-message:', error);
+  } catch (error) {
+    console.error('Error handling /send-message:', error);
 
-        // Send a more informative error response
-        res.status(500).json({ error: 'Internal Server Error', details: error.message });
-    }
+    // Send a more informative error response
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
 });
 
 // Your OAuth installation endpoint for handling GET requests
